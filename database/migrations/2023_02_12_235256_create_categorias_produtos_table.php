@@ -17,8 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('nome');
             $table->string('descricao');
-            $table->datetime('criado_em');
-            $table->datetime('atualizado_em');
         });
     }
 
