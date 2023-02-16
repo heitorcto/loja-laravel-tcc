@@ -53,7 +53,7 @@ class Handler extends ExceptionHandler
 
         $this->renderable(function (NotFoundHttpException $e) {
             return response()->json([
-                'mensagem' => 'Nenhum rota foi encontrada.'
+                'mensagem' => 'Nenhum rota ou objeto foi encontrado para as credenciais inseridas.'
             ], 404);
         });
     }

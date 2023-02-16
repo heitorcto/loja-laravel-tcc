@@ -8,25 +8,26 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up(): void
     {
-        Schema::create('categorias_produtos', function (Blueprint $table) {
+        Schema::create('usuarios', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->string('descricao');
+            $table->string('email');
+            $table->string('senha');
+            $table->datetime('data_nascimento');
+            $table->string('cpf');
+            $table->datetime('criado_em');
+            $table->datetime('atualizado_em');
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down(): void
     {
-        Schema::dropIfExists('categorias_produtos');
+        Schema::dropIfExists('usuarios');
     }
 };

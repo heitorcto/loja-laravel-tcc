@@ -30,7 +30,7 @@ class ProdutoRequest extends FormRequest
                     'descricao' => 'required|string|min:10',
                     'preco' => 'required|numeric',
                     'quantidade_estoque' => 'required|integer',
-                    'categoria_produto_id' => 'required|integer',
+                    'categoria_produto_id' => 'required|integer'
                 ];
                 break;
             case 'PUT':
@@ -40,9 +40,17 @@ class ProdutoRequest extends FormRequest
                     'descricao' => 'required|string|min:10',
                     'preco' => 'required|numeric',
                     'quantidade_estoque' => 'required|integer',
-                    'categoria_produto_id' => 'required|integer',
+                    'categoria_produto_id' => 'required|integer'
                 ];
                 break;
+            case 'GET':
+                $this->rules = [
+                    'id' => 'filled|integer'
+                ];
+            case 'DELETE':
+                $this->rules = [
+                    'id' => 'required|integer'
+                ];
         }
 
         return $this->rules;
