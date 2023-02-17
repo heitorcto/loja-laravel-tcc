@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ProdutoRequest extends FormRequest
 {
-    protected $rules = [];
+    protected array $rules;
 
     /**
      * Determine if the user is authorized to make this request.
