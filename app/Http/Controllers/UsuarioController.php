@@ -24,7 +24,7 @@ class UsuarioController extends Controller
 
         return response()->json([
             'mensagem' => 'Usuário cadastrado com sucesso.',
-        ]);
+        ], 200);
     }
 
     public function logar(UsuarioRequest $usuarioRequest): JsonResponse
@@ -46,6 +46,22 @@ class UsuarioController extends Controller
         return response()->json([
             'mensagem' => 'Logado com sucesso.',
             'token' => $token
+        ], 200);
+    }
+
+    public function resgatarInformacaoUsuario(UsuarioRequest $usuarioRequest): JsonResponse
+    {
+        return response()->json([
+            $usuarioRequest->user()
         ]);
+    }
+
+    public function sair(UsuarioRequest $usuarioRequest): JsonResponse
+    {
+        $usuarioRequest->user()->tokens()->delete();
+
+        return response()->json([
+            'mensagem' => 'Deslogado com sucesso.'
+        ], 200);
     }
 }

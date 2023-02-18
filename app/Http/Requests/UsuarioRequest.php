@@ -40,6 +40,8 @@ class UsuarioRequest extends FormRequest
                     'senha' => 'required|string|min:6|max:255'
                 ];
                 break;
+            default:
+                $this->rules = [];
         }
 
         return $this->rules;

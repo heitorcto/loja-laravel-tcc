@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Sanctum\HasApiTokens;
 
 class Usuario extends Authenticatable
@@ -23,4 +24,13 @@ class Usuario extends Authenticatable
         'criado_em',
         'atualizado_em'
     ];
+
+    protected $hidden = [
+        'senha'
+    ];
+
+    public function enderecos(): HasMany
+    {
+        return $this->hasMany(UsuarioEndereco::class);
+    }
 }

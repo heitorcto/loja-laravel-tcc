@@ -23,8 +23,8 @@ class ProdutoRequest extends FormRequest
      */
     public function rules(): array
     {
-        switch ($this->method()) {
-            case 'POST':
+        switch ($this->path()) {
+            case 'api/produtos/cadastrar':
                 $this->rules = [
                     'nome' => 'required|string|max:255|min:5',
                     'descricao' => 'required|string|min:10',
@@ -33,7 +33,7 @@ class ProdutoRequest extends FormRequest
                     'categoria_produto_id' => 'required|integer'
                 ];
                 break;
-            case 'PUT':
+            case 'api/produtos/atualizar':
                 $this->rules = [
                     'id' => 'required|integer',
                     'nome' => 'required|string|max:255|min:5',
@@ -43,14 +43,14 @@ class ProdutoRequest extends FormRequest
                     'categoria_produto_id' => 'required|integer'
                 ];
                 break;
-            case 'GET':
-                $this->rules = [
-                    'id' => 'filled|integer'
-                ];
-            case 'DELETE':
+            case 'api/produtos/exibir':
+            case 'api/produtos/deletar':
                 $this->rules = [
                     'id' => 'required|integer'
                 ];
+                break;
+            default:
+                $this->rules = [];
         }
 
         return $this->rules;
