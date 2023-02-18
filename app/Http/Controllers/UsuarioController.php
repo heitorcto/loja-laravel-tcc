@@ -29,14 +29,23 @@ class UsuarioController extends Controller
 
     public function logar(UsuarioRequest $usuarioRequest): JsonResponse
     {
-        $usuario = Usuario::select('senha')
+        $usuario = Usuario::select('id', 'nome', 'senha')
             ->where('email', '=', $usuarioRequest->email)
             ->first();
 
-        if (Hash::check($usuarioRequest->senha, $usuario->senha)) {
+        if (!$usuario || !Hash::check($usuarioRequest->senha, $usuario->senha)) {
             return response()->json([
-                'mensagem' => $usuario,
+                'mensagem' => 'Credenciais incorretas.',
             ]);
         }
+
+        $token = $usuario
+            ->createToken($usuario->nome)
+            ->plainTextToken;
+
+        return response()->json([
+            'mensagem' => 'Logado com sucesso.',
+            'token' => $token
+        ]);
     }
 }
