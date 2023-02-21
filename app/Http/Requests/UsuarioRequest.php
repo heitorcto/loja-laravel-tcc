@@ -31,7 +31,7 @@ class UsuarioRequest extends FormRequest
                     'senha' => 'required|string|min:6|max:255',
                     'confirmarSenha' => 'required|string|min:6|max:255|same:senha',
                     'dataNascimento' => 'required|date',
-                    'cpf' => 'required|cpf'
+                    'cpf' => 'required|cpf|unique:usuarios,cpf'
                 ];
                 break;
             case 'api/usuario/logar':
@@ -50,7 +50,9 @@ class UsuarioRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.unique' => 'Esse e-mail já está em uso.'
+            'email.unique' => 'Esse e-mail já está em uso.',
+            'cpf.required' => 'O campo cpf é obrigatório',
+            'cpf.unique' => 'Esse cpf já está em uso'
         ];
     }
 }

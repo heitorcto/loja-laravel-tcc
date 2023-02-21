@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Validation\Rule;
+use Illuminate\Http\Request;
 use App\Rules\CepValidator;
 
 class UsuarioEnrederoRequest extends FormRequest
@@ -30,11 +33,20 @@ class UsuarioEnrederoRequest extends FormRequest
                     'nome' => 'required|string|min:5|max:255',
                     'estado' => 'required|string|min:5|max:255',
                     'cidade' => 'required|string|min:5|max:255',
-                    'cep' => ['required', new CepValidator]
+                    'cep' => ['required', new CepValidator, Rule::unique('usuario_enderecos')->where(function (Builder $query) {
+                        return $query->where('usuario_id', "=", UsuarioEnrederoRequest::user()->id)->where('cep', '=', UsuarioEnrederoRequest::get('cep'));
+                    })]
                 ];
                 break;
         }
 
         return $this->rules;
+    }
+
+    public function messages()
+    {
+        return [
+            'cep.unique' => 'Este cep já está cadastrado cadastrado nessa conta.'
+        ];
     }
 }
